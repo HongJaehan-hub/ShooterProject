@@ -14,7 +14,6 @@
 **애니메이션 블루프린트에서 블랜드 스페이스를 가져와 최종 애니메이션 출력**<br><br>
 
 ![image](https://github.com/user-attachments/assets/debe078a-daa0-4c1c-a108-b545dfccaf98)
-
-**Pawn의 Velocity를 받아와 속도를 지정하고 방향 벡터를 받아와 Rotation을 설정해줌**<br><br>
+**이벤트 그래프에서 Pawn의 Velocity를 받아와 속도를 지정하고 방향 벡터를 받아와 Rotation을 설정해줌**<br><br>
 **Inverse Transform Direction : 방향 벡터를 제공된 트랜스폼의 역으로 변환하여 월드 스페이스에서 로컬 스페이스로의 방향 트랜스폼이 됨**<br><br>
 **Rotation From X Vector : X(언리얼 정면 방향)을 기준으로 Rotation값을 가져옴**<br><br>
