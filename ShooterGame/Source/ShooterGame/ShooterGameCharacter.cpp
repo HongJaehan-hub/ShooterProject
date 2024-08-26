@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Gun.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -64,6 +65,21 @@ void AShooterGameCharacter::BeginPlay()
 			InputSystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	HideDefaultWeaponBone();
+	SpawnPlayerGun();
+}
+
+void AShooterGameCharacter::HideDefaultWeaponBone()
+{
+	GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+}
+
+void AShooterGameCharacter::SpawnPlayerGun()
+{
+	PlayerGun = GetWorld()->SpawnActor<AGun>(GunClass);
+	PlayerGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weapon_socket"));
+	PlayerGun->SetOwner(this);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,6 +102,8 @@ void AShooterGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShooterGameCharacter::Look);
 
+		//Fire Gun
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &AShooterGameCharacter::Fire);
 	}
 
 }
@@ -105,9 +123,8 @@ void AShooterGameCharacter::Move(const FInputActionValue& Value)
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	
 		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		UE_LOG(LogTemp, Display, TEXT("MoveVector Y : %f"), MovementVector.Y);
+		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement
 
 		float deltaSec = GetWorld()->GetDeltaSeconds();
@@ -126,14 +143,14 @@ void AShooterGameCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		FRotator CurrentRotation = GetControlRotation();
 
-		// limit camera rotation -90 ~ 90
 		AddControllerYawInput(LookAxisVector.X);
-		UE_LOG(LogTemp, Display, TEXT("LookAxisVector X : %f"), LookAxisVector.X);
 
 		AddControllerPitchInput(LookAxisVector.Y * RotationSpeed * GetWorld()->GetDeltaSeconds());
 	}
 }
 
-
-
-
+void AShooterGameCharacter::Fire(const FInputActionValue &Value)
+{
+	if(PlayerGun)
+		PlayerGun->Fire();
+}

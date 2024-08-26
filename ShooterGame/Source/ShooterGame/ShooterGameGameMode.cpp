@@ -6,9 +6,4 @@
 
 AShooterGameGameMode::AShooterGameGameMode()
 {
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Shooter/Blueprint/BP_PlayerCharacter"));
-	{
-		UE_LOG(LogTemp, Display, TEXT("[jh] Your message 2222"));
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
 }

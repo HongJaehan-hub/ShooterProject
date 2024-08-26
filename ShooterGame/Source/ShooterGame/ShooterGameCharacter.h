@@ -37,6 +37,10 @@ class AShooterGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
+	/** Fire Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* FireAction;
+
 	float RotationSpeed = 100.f;
 public:
 	AShooterGameCharacter();
@@ -48,7 +52,9 @@ protected:
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
-	void Look(const FInputActionValue& Value);			
+	void Look(const FInputActionValue& Value);
+
+	void Fire(const FInputActionValue& Value);
 
 protected:
 	// APawn interface
@@ -62,5 +68,19 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class AGun> GunClass;
+
+	UPROPERTY(EditDefaultsOnly)
+	class AGun* PlayerGun;
+
+private:
+	UFUNCTION()
+	void HideDefaultWeaponBone();
+
+	UFUNCTION()
+	void SpawnPlayerGun();
 };
 
