@@ -15,6 +15,6 @@ UE5 기반으로 하는 슈터게임 제작입니다.
 <br>Bullet 생성 및 사용을 최적화 하기위해ObjectPool 클래스 생성 
 <br>ObjectPool로 관리할 Actor 상위 클래스 ObjectPoolActor 클래스 생성 후 사용 
 
-다음 목록
-위아래 방향으로 쏠 수 있도록 구현 예정
-UIManager 구현
+<br>다음 예정 목록
+<br>위아래 방향으로 쏠 수 있도록 구현 예정
+<br>UIManager 구현
