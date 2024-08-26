@@ -1,17 +1,17 @@
 [ObjectPool.cpp](https://github.com/HongJaehan-hub/ShooterProject/blob/main/ShooterGame/Source/ShooterGame/ObjPool.cpp)
 
+<br>ActorComponent로 제작하여 원하는 Actor에 추가하여 사용 (클래스 이름은 엔진의 ObjectPool과 겹쳐 ObjPool로 설정)
 ```
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SHOOTERGAME_API UObjPool : public UActorComponent
 ```
-<br>ActorComponent로 제작하여 원하는 Actor에 추가하여 사용 (클래스 이름은 엔진의 ObjectPool과 겹쳐 ObjPool로 설정)
 
+<br>사용 할 Actor를 BP에서 지정 가능하도록 PooledObjectClass 변수 추가
 ```
 public:
   UPROPERTY(EditAnywhere, Category="ObjectPool")
   TSubclassOf<class AObjectPoolActor> PooledObjectClass;
 ```
-<br>사용 할 Actor를 BP에서 지정 가능하도록 PooledObjectClass 변수 추가
 
 <br>**cpp 구현부**
 ```
