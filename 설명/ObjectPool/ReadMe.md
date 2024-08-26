@@ -65,3 +65,12 @@ void AGun::Fire()
 	}
 }
 ```
+
+**-Object Pool 사용**
+<br> 우측에 최초 생성된 Bullet0~5를 반복해서 사용<br> 
+![2024-08-26155956-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/65ddef9c-a85a-4dbf-949c-ad78493b5ab3)
+
+**-Object Pool 미사용**
+<br> Actor가 계속 생성되는걸 볼 수 있음<br> 
+![2024-08-26161541-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/c1fa2d59-ba9f-4b16-b89b-238d71f245c4)
+
