@@ -19,6 +19,8 @@ AGun::AGun()
 	GunMesh->SetupAttachment(Root);
 
 	ObjectPool = CreateDefaultSubobject<UObjPool>(TEXT("ObjectPool"));
+
+	LastFiredTime = 0.f;
 }
 
 // Called when the game starts or when spawned
@@ -41,12 +43,13 @@ void AGun::Fire()
 
 	// check fire rate
 	float CurrentTime = GetWorld()->GetTimeSeconds(); 
-	if(CurrentTime - LastFiredTime < FireRate)
+	if(CurrentTime - LastFiredTime < FireInterval)
 		return;
 
 	LastFiredTime = CurrentTime;
 	UGameplayStatics::SpawnEmitterAttached(FireFlash, GunMesh, TEXT("MuzzleFlashSocket"));
 
+	// OjbectPool에서 미사용중인 객체를 받아와 사용
 	ABullet* Bullet = Cast<ABullet>(ObjectPool->GetObject());
 	if(Bullet)
 	{

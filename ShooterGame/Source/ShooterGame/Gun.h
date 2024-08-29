@@ -44,5 +44,5 @@ public:
 private:
 	uint8 BulletCount = 100;
 	float LastFiredTime = 0;
-	float FireRate = 0.2f;
+	float FireInterval = 0.2f; // 현재는 private에 있지만 추후 BP에 노출하여 총마다 다르게 설정필요 
 };

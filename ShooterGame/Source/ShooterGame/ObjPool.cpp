@@ -10,7 +10,6 @@ UObjPool::UObjPool()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	// ...
 }
 
 
@@ -39,6 +38,7 @@ void UObjPool::CreateAndAddToPool(int Size)
 	if(PooledObjectClass == nullptr || World == nullptr)
 		return;
 
+	ULevel* Level = World->GetCurrentLevel();
 	for(uint8 i = 0; i < Size; ++i)
 	{
 		AObjectPoolActor* PooledObject = SpawnPoolActor();
@@ -49,6 +49,7 @@ void UObjPool::CreateAndAddToPool(int Size)
 
 AObjectPoolActor* UObjPool::SpawnPoolActor()
 {
+	// Spawn 후 비활성화 상태로 설정
 	AObjectPoolActor* PooledObject = GetWorld()->SpawnActor<AObjectPoolActor>(PooledObjectClass);
 	PooledObject->SetActorHiddenInGame(true);
 	PooledObject->SetParentObjectPool(this);
@@ -57,9 +58,11 @@ AObjectPoolActor* UObjPool::SpawnPoolActor()
 
 AObjectPoolActor *UObjPool::GetObject()
 {
+	// 현재 풀에 남아있는 사용할 수 있는 Actor가 없는 경우 추가
 	if(Pool.Num() <= 0)
 		ExpandPoolSize();
 	
+	// 미리 생성된 객체를 풀에서 꺼내와서 사용
 	AObjectPoolActor* PooledObject = Pool.Pop();
 	if(PooledObject == nullptr) 
 		return nullptr;
@@ -70,6 +73,7 @@ AObjectPoolActor *UObjPool::GetObject()
 
 void UObjPool::ReturnObject(AObjectPoolActor *Object)
 {
+	// 사용 완료된 객체 풀로 돌려줌
 	Object->SetActive(false);
 	Pool.Push(Object);
 }

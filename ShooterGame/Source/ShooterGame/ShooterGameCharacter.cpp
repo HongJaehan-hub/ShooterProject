@@ -3,12 +3,9 @@
 #include "ShooterGameCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
 #include "Gun.h"
 
 
@@ -57,15 +54,6 @@ void AShooterGameCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	// Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* InputSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			InputSystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
-
 	HideDefaultWeaponBone();
 	SpawnPlayerGun();
 }
@@ -80,32 +68,6 @@ void AShooterGameCharacter::SpawnPlayerGun()
 	PlayerGun = GetWorld()->SpawnActor<AGun>(GunClass);
 	PlayerGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weapon_socket"));
 	PlayerGun->SetOwner(this);
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void AShooterGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		//Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		//Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShooterGameCharacter::Move);
-
-		//Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShooterGameCharacter::Look);
-
-		//Fire Gun
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &AShooterGameCharacter::Fire);
-	}
-
 }
 
 void AShooterGameCharacter::Move(const FInputActionValue& Value)

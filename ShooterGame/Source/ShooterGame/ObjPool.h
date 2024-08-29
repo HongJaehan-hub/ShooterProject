@@ -6,7 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "ObjPool.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SHOOTERGAME_API UObjPool : public UActorComponent
 {
@@ -41,9 +40,9 @@ public:
 	TSubclassOf<class AObjectPoolActor> PooledObjectClass;
 
 	UPROPERTY(EditAnywhere, Category="ObjectPool")
-	int SizeOfPool = 1;
+	int SizeOfPool = 5;
 
 private:
 	TArray<class AObjectPoolActor*> Pool;
-	int ExpandSize = 1;
+	int ExpandSize = 5;
 };
