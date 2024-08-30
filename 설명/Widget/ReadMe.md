@@ -67,3 +67,8 @@ inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &Widg
 }
 ```
 **template 반환 형태로 만들어 UPopupWidget을 상속받은 UserWidget만 열수 있도록 구현**
+
+![2024-08-30212120-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0ceecba9-36e2-4d75-8b5a-dd3a7bfa3a52)
+<br>**Popup 오픈 테스트**
+<br>팝업 오픈 시 캐릭터 컨트롤용 MappingContext를 제거해 입력을 마우스로만 제한 (팝업 닫을 시 다시 Add 해줌)
+
