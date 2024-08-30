@@ -47,21 +47,21 @@ UUIManager *UUIManager::Instance()
 template <typename T>
 inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &WidgetName, FPopupParam PopupParam)
 {
-	static_assert(TIsDerivedFrom<T, UPopupWidget>::Value, "must be derived from UPopupWidget");
+    static_assert(TIsDerivedFrom<T, UPopupWidget>::Value, "must be derived from UPopupWidget");
+    UUserWidget* Widget = CreateWidget(WorldContextObject, WidgetName);
 
-	UUserWidget* Widget = CreateWidget(WorldContextObject, WidgetName);
     if(Widget)
     {
         Widget->AddToViewport();
         WidgetStack.Add(Widget);
 
-		  T* PopupWidget = Cast<T>(Widget);
-		  if(PopupWidget)
-		  {
-		  	PopupWidget->Open(PopupParam);
-		  }
-	  	return PopupWidget;
-      }
+	T* PopupWidget = Cast<T>(Widget);
+        if(PopupWidget)
+	{
+  		PopupWidget->Open(PopupParam);
+	}
+	return PopupWidget;
+    }
 
     return nullptr;
 }
