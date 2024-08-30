@@ -42,7 +42,7 @@ void AShooterPlayerController::SetupInputComponent()
 
         if(DefaultMappingContext)
         {
-            EnhancedInputComponent->BindAction(PopupAction, ETriggerEvent::Triggered, this, &AShooterPlayerController::OnOpenPopup);
+            EnhancedInputComponent->BindAction(PopupAction, ETriggerEvent::Started, this, &AShooterPlayerController::OnOpenPopup);
         }
 	}
 }
@@ -82,14 +82,29 @@ void AShooterPlayerController::OnLeftMouseClicked(const FInputActionValue& Value
 
 void AShooterPlayerController::OnOpenPopup(const FInputActionValue& Value)
 {
-    UPopupWidget* PopupWidget = UUIManager::Instance()->OpenPopup<UPopupWidget>(GetPawn(), "WBP_BasePopup");
-    PopupWidget->Open();
-    
-    bShowMouseCursor = true;
+    // check already opened widget
+    if(!UUIManager::Instance()->IsWidgetOpened("WBP_BasePopup"))
+    {
+        FPopupParam Param;
+        UPopupWidget* PopupWidget = UUIManager::Instance()->OpenPopup<UPopupWidget>(GetPawn(), "WBP_BasePopup");
+        SetUIMode(true);
+    }
+}
+
+void AShooterPlayerController::SetUIMode(bool bActiveUIMode)
+{
+    bShowMouseCursor = bActiveUIMode;
     if (UEnhancedInputLocalPlayerSubsystem* InputSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
     {
-        // remove player character input
-        FModifyContextOptions Options;
-        InputSystem->RemoveMappingContext(CharacterMappingContext, Options);
+        if(bActiveUIMode)
+        {
+            // remove player character input
+            FModifyContextOptions Options;
+            InputSystem->RemoveMappingContext(CharacterMappingContext, Options);
+        }
+        else
+        {
+            InputSystem->AddMappingContext(CharacterMappingContext, 1);
+        }
     }
 }

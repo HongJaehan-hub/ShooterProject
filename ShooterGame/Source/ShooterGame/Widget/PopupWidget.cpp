@@ -4,11 +4,6 @@
 #include "PopupWidget.h"
 #include "../UIManager.h"
 
-// void UPopupWidget::OnInit(PopupParams Param)
-// {
-
-// }
-
 void UPopupWidget::Opening()
 {
     
@@ -24,14 +19,14 @@ void UPopupWidget::Closing()
 
 }
 
-void UPopupWidget::Open()
+void UPopupWidget::Open(const FPopupParam& param)
 {
     PlayOpenAnimation();
 }
 
 void UPopupWidget::Close()
 {
-
+    PlayCloseAnimation();
 }
 
 void UPopupWidget::Closed()

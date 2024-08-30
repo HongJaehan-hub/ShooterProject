@@ -7,6 +7,7 @@
 #include "kismet/GameplayStatics.h"
 #include "GameFramework/PlayerController.h"
 #include "Widget/PopupWidget.h"
+#include "ShooterPlayerController.h"
 
 UUIManager* UUIManager::_Instance = nullptr;
 
@@ -46,9 +47,33 @@ UUserWidget *UUIManager::CreateWidget(UObject *WorldContextObject, const FString
 void UUIManager::ClosePopup(UUserWidget *UserWidget)
 {
     WidgetStack.Remove(UserWidget);
+    UserWidget->RemoveFromParent();
+    if(WidgetStack.Num() == 0)
+    {
+        UWorld* World = UserWidget->GetWorld();
+        if(World)
+        {
+            AShooterPlayerController* PlayerController = Cast<AShooterPlayerController>(World->GetFirstPlayerController());
+            if(PlayerController)
+                PlayerController->SetUIMode(false);
+        }
+    }
 }
 
 bool UUIManager::IsAnyPopupOpened()
 {
     return WidgetStack.Num() > 0;
+}
+
+bool UUIManager::IsWidgetOpened(FString WidgetName)
+{
+    if(WidgetStack.Num() == 0)
+        return false;
+
+    for(auto Widget : WidgetStack)
+    {
+        if(Widget != nullptr && Widget->GetName() == WidgetName)
+            return true;
+    }
+    return false;
 }

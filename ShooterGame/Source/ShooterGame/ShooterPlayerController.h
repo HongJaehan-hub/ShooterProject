@@ -44,6 +44,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* PopupAction;
 
+public:
+	void SetUIMode(bool bActiveUIMode);
 protected:
 	virtual void BeginPlay() override;
     virtual void SetupInputComponent();
@@ -55,7 +57,6 @@ private:
 	void OnMouseMoved(const FInputActionValue& Value);
 	void OnLeftMouseClicked(const FInputActionValue& Value);
     void OnOpenPopup(const FInputActionValue &Value);
-
 private:
 	class AShooterGameCharacter* ShooterGameCharacter;
 };

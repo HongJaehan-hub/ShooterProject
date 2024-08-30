@@ -41,6 +41,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "ObjectPool")
 	class UObjPool* ObjectPool;
+
+	UPROPERTY(EditAnywhere, Category = "GunStats")
+	float Damage = 10.f;
 private:
 	uint8 BulletCount = 100;
 	float LastFiredTime = 0;

@@ -6,19 +6,13 @@
 #include "BaseWidget.h"
 #include "PopupWidget.generated.h"
 
-UINTERFACE(Blueprintable)
-class UPopupInterface : public UInterface
-{
-    GENERATED_BODY()
-};
-
-class IPopupInterface
+USTRUCT(BlueprintType)
+struct FPopupParam
 {
     GENERATED_BODY()
 
 public:
-    template<typename T>
-    void OnInit(T param);
+	FPopupParam(){};
 };
 
 UCLASS()
@@ -27,12 +21,11 @@ class SHOOTERGAME_API UPopupWidget : public UBaseWidget
 	GENERATED_BODY()
 
 public:
-	class PopupParams{};
+	UFUNCTION(BlueprintCallable)
+	virtual void Open(const FPopupParam& param = FPopupParam());
 
-public:
-	void Open();
-	void Close();
-	// virtual void OnInit(PopupParams Param);
+	UFUNCTION(BlueprintCallable)
+	virtual void Close();
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -54,9 +47,3 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	virtual void Closed();
 };
-
-// template<typename T>
-// inline void UPopupWidget::OnInit(T Param)
-// {
-
-// }

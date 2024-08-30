@@ -54,8 +54,8 @@ void AGun::Fire()
 	if(Bullet)
 	{
 		FVector StartPos = GunMesh->GetSocketLocation("MuzzleFlashSocket");
-		Bullet->SetActorLocationAndRotation(StartPos, GetOwner()->GetActorRotation());
-		Bullet->Fire(GetOwner()->GetActorRotation().Vector());
+		Bullet->SetActorLocationAndRotation(StartPos, GunMesh->GetSocketRotation("MuzzleFlashSocket"));
+		Bullet->Fire(Cast<APawn>(GetOwner())->GetControlRotation().Vector());
 	}
 }
 
