@@ -1,6 +1,9 @@
 # ShooterProject
 UE5 기반으로 하는 슈터게임 제작입니다.
 
+## 진행중인 사항은 아래에서 확인 가능합니다.
+[설명](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85).
+
 ## 현재 제작 진행중
 
 **2024.08.24**
