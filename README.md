@@ -19,6 +19,6 @@ UE5 기반으로 하는 슈터게임 제작입니다.
 <br> BaseWidget, PopupWidget 제작
 <br> PopupWidget 애니메이션 추가
 
-<br>다음 예정 목록
-<br>위아래 방향으로 쏠 수 있도록 구현 예정
-<br>UIManager 구현
+<br>**2024.08.28**
+<br> 위 아래 방향으로 쏠 수 있도록 additive animation 추가
+<br> UIManager Singleton으로 제작, Popup을 UIManager를 통해 컨트롤 할 수 있도록 구현
