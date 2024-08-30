@@ -27,7 +27,7 @@ AObjectPoolActor *UObjPool::GetObject()
 		return nullptr;
 
 	PooledObject->SetActive(true);
-    return PooledObject;
+        return PooledObject;
 }
 
 void UObjPool::ReturnObject(AObjectPoolActor *Object)
