@@ -18,7 +18,7 @@
 **Inverse Transform Direction : 방향 벡터를 제공된 트랜스폼의 역으로 변환하여 월드 스페이스에서 로컬 스페이스로의 방향 트랜스폼이 됨**<br><br>
 **Rotation From X Vector : X(언리얼 정면 방향)을 기준으로 Rotation값을 가져옴**<br><br>
 
-# Additive Anim
+# Additive Animation
 ![2024-08-30163040-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/6c7c487f-1629-4b7c-931b-308ef3912512)
 ![image](https://github.com/user-attachments/assets/b890596d-4ada-432a-864e-a00f06c695b2)
 ![image](https://github.com/user-attachments/assets/5e727293-fbb9-42f8-874a-01b4d4526a9a)
