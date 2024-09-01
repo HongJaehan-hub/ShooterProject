@@ -1,5 +1,7 @@
 # ShooterProject
 UE5 기반으로 하는 슈터게임 제작입니다.
+<br>**사용 엔진 : UE5**
+<br>**사용 IDE : VS CODE**
 
 ## 진행중인 사항은 아래에서 확인 가능합니다.
 [설명](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85)
