@@ -1,7 +1,7 @@
 # Widget 작업
 ## Base Popup
-[UBasePopupWidget.h](https://github.com/HongJaehan-hub/ShooterProject/blob/main/ShooterGame/Source/ShooterGame/Widget/PopupWidget.h).
-<br>[UBasePopupWidget.cpp](https://github.com/HongJaehan-hub/ShooterProject/blob/main/ShooterGame/Source/ShooterGame/Widget/PopupWidget.cpp)
+[UPopupWidget.h](https://github.com/HongJaehan-hub/ShooterProject/blob/main/ShooterGame/Source/ShooterGame/Widget/PopupWidget.h).
+<br>[UPopupWidget.cpp](https://github.com/HongJaehan-hub/ShooterProject/blob/main/ShooterGame/Source/ShooterGame/Widget/PopupWidget.cpp)
 
 ![2024-08-27214402-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/e048e15f-2969-4217-96b1-3f02484d7fc1)
 <br> Popup이 자연스럽게 열리게 하기 위해 애니메이션 제작 Alpha와 Offset 조정
@@ -16,11 +16,11 @@ public:
 	FPopupParam(){};
 };
 ```
-**Popup을 초기화 해줄 struct 생성**<br>
+**Popup을 초기화 해줄 struct 생성**<br><br>
 
 ```
-	UFUNCTION(BlueprintCallable)
-	virtual void Open(const FPopupParam& param = FPopupParam());
+UFUNCTION(BlueprintCallable)
+virtual void OnInit(FPopupParam Param = FPopupParam());
 ```
 **UPopupWidget을 상속받는 곳에서 Open을 재정의 해서 초기화**
 
@@ -126,5 +126,6 @@ void AShooterPlayerController::OnOpenPopup(const FInputActionValue& Value)
 <br>
 
 ![2024-09-01163817-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/55c0a9b2-3794-4838-bf51-59685fe8d21f)
-<br>**Popup 오픈 시 현재 캐릭터의 적용중인 Skin Slot Index를 받아와서 Popup에 초기화 시켜줌 (현재 첫번째 스킨 적용중)**
+<br>**팝업 오픈 시 현재 캐릭터의 적용중인 SkinSlotIndex를 받아와
+<br>해당 정보 기반으로 팝업을 초기화 시켜줌 (현재 첫번째 스킨 적용중)**
 
