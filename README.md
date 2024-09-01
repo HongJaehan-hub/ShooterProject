@@ -4,8 +4,8 @@
 ### **IDE : Visual Studio Code**<br>
 
 ## 진행중인 사항은 아래에서 확인 가능합니다.
-[설명](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85)
-<br>[C++ 코드](https://github.com/HongJaehan-hub/ShooterProject/tree/main/ShooterGame/Source/ShooterGame)
+### [설명](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85)
+### [C++ 코드](https://github.com/HongJaehan-hub/ShooterProject/tree/main/ShooterGame/Source/ShooterGame)
 
 ## 현재 제작 진행중
 
