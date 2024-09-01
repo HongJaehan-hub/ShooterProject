@@ -15,6 +15,9 @@ class SHOOTERGAME_API UBaseWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void Refresh();
+
 	UFUNCTION()
 	void SetVisible(bool bVisible);
 };

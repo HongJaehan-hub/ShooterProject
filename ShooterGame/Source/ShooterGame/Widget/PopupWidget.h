@@ -6,23 +6,35 @@
 #include "BaseWidget.h"
 #include "PopupWidget.generated.h"
 
+// FPopupParam 구조체 정의
 USTRUCT(BlueprintType)
 struct FPopupParam
 {
     GENERATED_BODY()
 
 public:
-	FPopupParam(){};
+    FPopupParam() {}
+};
+
+// 템플릿 인터페이스 정의
+template<typename TParam>
+class IPopupInterface
+{
+public:
+    virtual void OnInit(TParam Param) = 0;
 };
 
 UCLASS()
-class SHOOTERGAME_API UPopupWidget : public UBaseWidget
+class SHOOTERGAME_API UPopupWidget : public UBaseWidget, public IPopupInterface<FPopupParam>
 {
 	GENERATED_BODY()
 
 public:
 	UFUNCTION(BlueprintCallable)
-	virtual void Open(const FPopupParam& param = FPopupParam());
+	virtual void Open();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void OnInit(FPopupParam Param = FPopupParam());
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Close();

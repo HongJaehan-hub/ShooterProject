@@ -2,3 +2,15 @@
 
 
 #include "SkinChangePopupWidget.h"
+
+void USkinChangePopupWidget::OnInit(FChangeSkinPopupParam Param)
+{
+    Super::OnInit(Param);
+    SelectedSkinSlotIndex = Param.SelectSkinIndex;
+    Refresh();
+}
+
+void USkinChangePopupWidget::Close()
+{
+    Super::Close();
+}

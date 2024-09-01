@@ -8,7 +8,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/Character.h"
 #include "UIManager.h"
-#include "Widget/PopupWidget.h"
+#include "Widget/SkinChangePopupWidget.h"
 
 void AShooterPlayerController::BeginPlay()
 {
@@ -83,11 +83,15 @@ void AShooterPlayerController::OnLeftMouseClicked(const FInputActionValue& Value
 void AShooterPlayerController::OnOpenPopup(const FInputActionValue& Value)
 {
     // check already opened widget
-    if(!UUIManager::Instance()->IsWidgetOpened("WBP_BasePopup"))
+    if(!UUIManager::Instance()->IsWidgetOpened("WBP_SkinChangePopup"))
     {
-        FPopupParam Param;
-        UPopupWidget* PopupWidget = UUIManager::Instance()->OpenPopup<UPopupWidget>(GetPawn(), "WBP_BasePopup");
-        SetUIMode(true);
+        auto ShooterCharacter = Cast<AShooterGameCharacter>(GetCharacter());
+        if(ShooterCharacter)
+        {
+            FChangeSkinPopupParam Param = FChangeSkinPopupParam(ShooterCharacter->GetCurrentSkinIndex());
+            UUIManager::Instance()->OpenPopup<USkinChangePopupWidget, FChangeSkinPopupParam>(GetPawn(), "WBP_SkinChangePopup", Param);
+            SetUIMode(true);
+        }
     }
 }
 

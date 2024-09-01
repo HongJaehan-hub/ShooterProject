@@ -53,6 +53,7 @@ void ABullet::OnBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * Othe
 {
 	if(bProjectileActive)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("OtherActor : %s"), *OtherActor->GetName());
 		ReturnToObjectPool();
 		bProjectileActive = false;
 		if(ParticleSpark)

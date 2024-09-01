@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Templates/Function.h"
 #include "Widget/PopupWidget.h"
+#include "Widget/SkinChangePopupWidget.h"
 #include "UIManager.generated.h"
 
 UCLASS()
@@ -15,26 +16,29 @@ class SHOOTERGAME_API UUIManager : public UObject
 	
 public:
 	static UUIManager* Instance();
+	void Init();
 
-	template<typename T>
-	T *OpenPopup(UObject* WorldContextObject, const FString& WidgetName, FPopupParam PopupParam = FPopupParam());
+	template<typename T, typename TParam>
+	T *OpenPopup(UObject* WorldContextObject, const FString& WidgetName, TParam &PopupParam = FPopupParam());
 
 	void ClosePopup(UUserWidget* UserWidget);
 	bool IsAnyPopupOpened();
 	bool IsWidgetOpened(FString WidgetName);
-private:
-	UUserWidget* CreateWidget(UObject* WorldContextObject, const FString& WidgetName);
 
 private:
 	UUIManager();
 	~UUIManager();
 
+private:
 	static UUIManager* _Instance;
 	TArray<UUserWidget*> WidgetStack;
+
+private:
+	UUserWidget* CreateWidget(UObject* WorldContextObject, const FString& WidgetName);
 };
 
-template <typename T>
-inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &WidgetName, FPopupParam PopupParam)
+template <typename T, typename TParam>
+inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &WidgetName, TParam &PopupParam)
 {
 	static_assert(TIsDerivedFrom<T, UPopupWidget>::Value, "must be derived from UPopupWidget");
 
@@ -47,7 +51,8 @@ inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &Widg
 		T* PopupWidget = Cast<T>(Widget);
 		if(PopupWidget)
 		{
-			PopupWidget->Open(PopupParam);
+			PopupWidget->OnInit(PopupParam);
+			PopupWidget->Open();
 		}
 		return PopupWidget;
     }

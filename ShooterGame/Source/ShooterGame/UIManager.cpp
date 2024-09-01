@@ -13,12 +13,12 @@ UUIManager* UUIManager::_Instance = nullptr;
 
 UUIManager::UUIManager()
 {
-    
+    WidgetStack.Reset();
 }
 
 UUIManager::~UUIManager()
 {
-
+    WidgetStack.Reset();
 }
 
 UUIManager *UUIManager::Instance()
@@ -29,6 +29,11 @@ UUIManager *UUIManager::Instance()
         _Instance->AddToRoot(); // GC 방지
     }
     return _Instance;
+}
+
+void UUIManager::Init()
+{
+    WidgetStack.Reset();
 }
 
 UUserWidget *UUIManager::CreateWidget(UObject *WorldContextObject, const FString &WidgetName)
@@ -46,7 +51,7 @@ UUserWidget *UUIManager::CreateWidget(UObject *WorldContextObject, const FString
 
 void UUIManager::ClosePopup(UUserWidget *UserWidget)
 {
-    WidgetStack.Remove(UserWidget);
+    int removedCnt = WidgetStack.Remove(UserWidget);
     UserWidget->RemoveFromParent();
     if(WidgetStack.Num() == 0)
     {
@@ -70,7 +75,7 @@ bool UUIManager::IsWidgetOpened(FString WidgetName)
     if(WidgetStack.Num() == 0)
         return false;
 
-    for(auto Widget : WidgetStack)
+    for(auto &Widget : WidgetStack)
     {
         if(Widget != nullptr && Widget->GetName() == WidgetName)
             return true;

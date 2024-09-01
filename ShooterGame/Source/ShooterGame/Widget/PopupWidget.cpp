@@ -4,6 +4,17 @@
 #include "PopupWidget.h"
 #include "../UIManager.h"
 
+void UPopupWidget::OnInit(FPopupParam Param)
+{
+    PlayOpenAnimation();
+}
+
+void UPopupWidget::Open()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Open !!!!!!!!!!!!!!!!!!"));
+    PlayOpenAnimation();
+}
+
 void UPopupWidget::Opening()
 {
     
@@ -17,11 +28,6 @@ void UPopupWidget::Opened()
 void UPopupWidget::Closing()
 {
 
-}
-
-void UPopupWidget::Open(const FPopupParam& param)
-{
-    PlayOpenAnimation();
 }
 
 void UPopupWidget::Close()

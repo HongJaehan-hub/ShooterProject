@@ -35,6 +35,8 @@ public:
 
 	void Fire(const FInputActionValue& Value);
 
+	void SetSkin(int32 SelectSkinIndex);
+	inline int32 GetCurrentSkinIndex() {return SkinIndex;};
 protected:
 	
 	// To add mapping context
@@ -46,6 +48,12 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skin")
+	TArray<USkeletalMesh*> SkinMeshes;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly)
+	int32 SkinIndex;
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class AGun> GunClass;

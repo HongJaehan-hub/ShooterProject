@@ -43,7 +43,7 @@ public:
 	/** Fire Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* PopupAction;
-
+ 
 public:
 	void SetUIMode(bool bActiveUIMode);
 protected:
