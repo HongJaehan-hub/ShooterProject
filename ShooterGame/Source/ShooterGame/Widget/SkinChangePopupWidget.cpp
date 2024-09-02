@@ -2,6 +2,7 @@
 
 
 #include "SkinChangePopupWidget.h"
+#include "../ShooterEventManager.h"
 
 void USkinChangePopupWidget::OnInit(FChangeSkinPopupParam Param)
 {
@@ -13,4 +14,10 @@ void USkinChangePopupWidget::OnInit(FChangeSkinPopupParam Param)
 void USkinChangePopupWidget::Close()
 {
     Super::Close();
+    UEventParamSkinChange* EventParam = NewObject<UEventParamSkinChange>();
+    if(EventParam)
+    {
+        EventParam->ChangeSkinIndex = SelectedSkinSlotIndex;
+        UShooterEventManager::Instance()->BroadcastEvent(EEventType::Event_ChangeSkin, EventParam);
+    }
 }

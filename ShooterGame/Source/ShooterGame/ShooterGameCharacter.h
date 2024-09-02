@@ -5,11 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "ShooterEventManager.h"
 #include "ShooterGameCharacter.generated.h"
 
 
 UCLASS(config=Game)
-class AShooterGameCharacter : public ACharacter
+class AShooterGameCharacter : public ACharacter, public IEventListener
 {
 	GENERATED_BODY()
 
@@ -35,13 +36,15 @@ public:
 
 	void Fire(const FInputActionValue& Value);
 
-	void SetSkin(int32 SelectSkinIndex);
+	void ChangeMeshSkin(int32 SelectSkinIndex);
 	inline int32 GetCurrentSkinIndex() {return SkinIndex;};
+
+	// override IEventListener
+	virtual void OnReceived(EEventType EventType, UEventParamBase* EventParam);
 protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
-
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -67,5 +70,7 @@ private:
 
 	UFUNCTION()
 	void SpawnPlayerGun();
+
+	void AddToEventListener();
 };
 

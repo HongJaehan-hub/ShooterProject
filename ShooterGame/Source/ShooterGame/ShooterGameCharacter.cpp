@@ -58,6 +58,21 @@ void AShooterGameCharacter::BeginPlay()
 
 	HideDefaultWeaponBone();
 	SpawnPlayerGun();
+	AddToEventListener();
+}
+
+void AShooterGameCharacter::AddToEventListener()
+{
+	UShooterEventManager::Instance()->AddListener(EEventType::Event_ChangeSkin, this);
+}
+
+void AShooterGameCharacter::OnReceived(EEventType EventType, UEventParamBase *EventParam)
+{
+	UEventParamSkinChange* SkinChangeParam = Cast<UEventParamSkinChange>(EventParam);
+	if(SkinChangeParam)
+	{
+		ChangeMeshSkin(SkinChangeParam->ChangeSkinIndex);
+	}
 }
 
 void AShooterGameCharacter::HideDefaultWeaponBone()
@@ -119,7 +134,11 @@ void AShooterGameCharacter::Fire(const FInputActionValue &Value)
 		PlayerGun->Fire();
 }
 
-void AShooterGameCharacter::SetSkin(int SelectSkinIndex)
+void AShooterGameCharacter::ChangeMeshSkin(int SelectSkinIndex)
 {
-	GetMesh()->SetSkeletalMeshAsset(SkinMeshes[SelectSkinIndex]);
+	if(SelectSkinIndex < SkinMeshes.Num())
+	{
+		SkinIndex = SelectSkinIndex;
+		GetMesh()->SetSkeletalMeshAsset(SkinMeshes[SelectSkinIndex]);
+	}
 }

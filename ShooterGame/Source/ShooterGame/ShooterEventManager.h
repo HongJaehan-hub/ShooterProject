@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "EventParams.h"
 #include "ShooterEventManager.generated.h"
 
 UENUM(BlueprintType)
@@ -12,32 +13,18 @@ enum class EEventType : uint8
     Event_ChangeSkin,
 };
 
-// UINTERFACE()
-// class SHOOTERGAME_API UEventListener : public UInterface
-// {
-// 	GENERATED_BODY()
-// };
-
-// class SHOOTERGAME_API IEventListener
-// {
-// 	GENERATED_BODY()
-// public:
-// 	virtual void OnReceived() = 0;
-// };
-
-template<typename T>
-class IEventListener
+UINTERFACE()
+class SHOOTERGAME_API UEventListener : public UInterface
 {
-	public:
-	virtual void OnReceivedEvent(T Param) = 0;
-}
-// // 템플릿 인터페이스 정의
-// template<typename TParam>
-// class IEventListener
-// {
-// public:
-//     virtual void OnInit(TParam Param) = 0;
-// };
+	GENERATED_BODY()
+};
+
+class SHOOTERGAME_API IEventListener
+{
+	GENERATED_BODY()
+public:
+	virtual void OnReceived(EEventType EventType, UEventParamBase* EventParam) = 0;
+};
 
 UCLASS()
 class SHOOTERGAME_API UShooterEventManager : public UObject
@@ -48,6 +35,12 @@ public:
 	static UShooterEventManager* Instance();
 	void Init();
 
+public:
+	void AddListener(EEventType EventType, IEventListener* Listener);
+	void RemoveListener(EEventType EventType, IEventListener* Listener);
+	void BroadcastEvent(EEventType EventType, UEventParamBase* Param = nullptr);
+	void RemoveAllListener();
 private:
 	static UShooterEventManager* _Instance;
+	TMap<EEventType, TArray<IEventListener*>> Listeners;
 };

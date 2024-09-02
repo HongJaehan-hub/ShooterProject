@@ -17,5 +17,41 @@ UShooterEventManager *UShooterEventManager::Instance()
 
 void UShooterEventManager::Init()
 {
-    
+    RemoveAllListener();
+}
+
+void UShooterEventManager::AddListener(EEventType EventType, IEventListener *Listener)
+{
+    TArray<IEventListener*>* ListenerArray = Listeners.Find(EventType);
+    if(ListenerArray)
+    {
+        ListenerArray->Add(Listener);
+    }
+    else
+    {
+        Listeners.Add(EventType, TArray<IEventListener*>{Listener});
+    }
+}
+
+void UShooterEventManager::RemoveListener(EEventType EventType, IEventListener * Listener)
+{
+    Listeners[EventType].Remove(Listener);
+}
+
+void UShooterEventManager::BroadcastEvent(EEventType EventType, UEventParamBase *Param)
+{
+    TArray<IEventListener*>* ListenerArray = Listeners.Find(EventType);
+    if(ListenerArray)
+    {
+        for(auto* listener : *ListenerArray)
+        {
+            if(listener)
+                listener->OnReceived(EventType, Param);
+        }   
+    }  
+}
+
+void UShooterEventManager::RemoveAllListener()
+{
+    Listeners.Reset();
 }

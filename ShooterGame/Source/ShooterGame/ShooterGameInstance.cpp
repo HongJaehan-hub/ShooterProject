@@ -3,9 +3,11 @@
 
 #include "ShooterGameInstance.h"
 #include "UIManager.h"
+#include "ShooterEventManager.h"
 
 void UShooterGameInstance::Init()
 {
     Super::Init();
     UUIManager::Instance()->Init();
+    UShooterEventManager::Instance()->Init();
 }
