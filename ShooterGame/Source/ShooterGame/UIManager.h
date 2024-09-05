@@ -21,6 +21,9 @@ public:
 	template<typename T, typename TParam>
 	T *OpenPopup(UObject* WorldContextObject, const FString& WidgetName, TParam &PopupParam = FPopupParam());
 
+	template<typename T>
+	T *AddWidget(UObject *WorldContextObject, FString WidgetName);
+
 	void ClosePopup(UUserWidget* UserWidget);
 	bool IsAnyPopupOpened();
 	bool IsWidgetOpened(FString WidgetName);
@@ -58,4 +61,16 @@ inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &Widg
     }
 
     return nullptr;
+}
+
+template <typename T>
+inline T *UUIManager::AddWidget(UObject *WorldContextObject, FString WidgetName)
+{
+	UUserWidget* Widget = CreateWidget(WorldContextObject, WidgetName);
+	if(Widget == nullptr)
+    	return nullptr;
+
+	Widget->AddToViewport();
+	WidgetStack.Add(Widget);
+	return Cast<T>(Widget);
 }

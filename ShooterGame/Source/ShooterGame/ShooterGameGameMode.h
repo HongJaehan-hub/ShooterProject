@@ -13,6 +13,13 @@ class AShooterGameGameMode : public AGameModeBase
 
 public:
 	AShooterGameGameMode();
+	virtual void StartPlay() override;
+
+private:
+	void CreateMainHUD();
+	void ChangeToGameStartCamera();
+	void CreateDefaultCharacter();
+	class APlayerStart* GetPlayerStart();
 };
 
 

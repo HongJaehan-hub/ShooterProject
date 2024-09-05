@@ -56,9 +56,9 @@ void AShooterGameCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	HideDefaultWeaponBone();
-	SpawnPlayerGun();
-	AddToEventListener();
+	// HideDefaultWeaponBone();
+	// SpawnPlayerGun();
+	// AddToEventListener();
 }
 
 void AShooterGameCharacter::AddToEventListener()
