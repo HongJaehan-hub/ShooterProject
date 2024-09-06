@@ -42,3 +42,8 @@
 <br> 팝업이 닫힐 때 스킨 선택 이벤트를 발생시켜 캐릭터에서 스킨이 변경되도록 구현
 <br>[[EventManager 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/EventManager)
 
+<br>**2024.09.03**
+<br> CMSTable Manager 제작
+<br> json 형식의 파일을 기준으로 테이블 제작
+<br>[[CMSTable Manager 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/LoadContentTable)
+
