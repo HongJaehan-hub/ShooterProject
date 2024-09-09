@@ -47,3 +47,7 @@
 <br> json 형식의 파일을 기준으로 테이블 제작
 <br>[[CMSTable Manager 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/LoadContentTable)
 
+<br>**2024.09.07**
+<br> Character Manager 제작, 캐릭터 선택 창 제작
+<br> Character.json 파일로부터 데이터를 가져와 캐릭터 선택 기능 추가
+<br>[[Character 선택 창 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/Character)
