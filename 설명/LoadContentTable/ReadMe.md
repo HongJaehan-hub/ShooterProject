@@ -135,3 +135,67 @@ if(JsonObject.IsValid())
 }
 ```
 
+<br>
+
+## Character json 정보를 가져와 이름과 이미지를 세팅<br>
+![image](https://github.com/user-attachments/assets/28912edd-4710-49fa-b1fc-58f927fba53f)
+![image](https://github.com/user-attachments/assets/656026be-4b02-4cd0-b3af-1f739cff4117)
+
+## Character.json
+```
+[
+  {
+    "Id": 1000,
+    "Name": "Wraith",
+    "CharacterAsset":"BP_Character_Wraith", 
+    "Image_Thumbnail": "Img_Thumbnail_Wraith"
+  },
+  {
+    "Id": 1001,
+    "Name": "Revenant",
+    "CharacterAsset":"BP_Character_Revenant", 
+    "Image_Thumbnail": "Img_Thumbnail_Revenant"
+
+  },
+  {
+    "Id": 1002,
+    "Name": "Murdock",
+    "CharacterAsset":"BP_Character_Murdock", 
+    "Image_Thumbnail": "Img_Thumbnail_Murdock"
+  }
+]
+```
+
+## 코드
+```
+void UMainHUDWidget::CreateCharacterListEntries()
+{
+    DynamicEntryBoxCharacterList->Reset();
+    CharacterListEntries.Reset();
+
+    int32 CurrentCharacterId = UCharacterManager::Instance()->GetCurrentCharacterId();
+    auto CharacterJsonValues = UCMSTable::Instance()->GetTable("Character");
+    if(CharacterJsonValues.Num() > 0)
+    {
+        for(const TSharedPtr<FJsonValue>& JsonValue : CharacterJsonValues)
+        {
+            TSharedPtr<FJsonObject> JsonObject = JsonValue->AsObject();
+            if(JsonObject.IsValid())
+            {
+                FString Name = JsonObject->GetStringField(TEXT("Name"));
+                UCharacterListEntry* Entry = DynamicEntryBoxCharacterList->CreateEntry<UCharacterListEntry>();
+                if(Entry)
+                {
+                    FCharacterListEntryParam Param;
+                    Param.CharacterId = JsonObject->GetNumberField(TEXT("Id"));
+                    Param.CharacterName = JsonObject->GetStringField(TEXT("Name"));
+                    Param.ThumbnailImg = JsonObject->GetStringField(TEXT("Image_Thumbnail"));
+                    Entry->InitCharacterEntry(Param, FOnEntryClicked::CreateUObject(this, &UMainHUDWidget::SelectCharacter));
+                    Entry->SetSelect(CurrentCharacterId == Param.CharacterId);
+                    CharacterListEntries.Add(Entry);
+                }
+            }
+        }
+    }
+}
+```
