@@ -48,6 +48,7 @@
 <br>[[CMSTable Manager 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/LoadContentTable)
 
 <br>**2024.09.07**
+<br>![2024-09-09181623-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/00d3663a-13b2-41cd-b8e2-cbc050ab1119)
 <br> Character Manager 제작, 캐릭터 선택 창 제작
 <br> Character.json 파일로부터 데이터를 가져와 캐릭터 선택 기능 추가
 <br>[[Character 선택 창 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/Character)
