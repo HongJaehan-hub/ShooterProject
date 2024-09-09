@@ -19,7 +19,6 @@ private:
 	void CreateMainHUD();
 	void ChangeToGameStartCamera();
 	void CreateDefaultCharacter();
-	class APlayerStart* GetPlayerStart();
 };
 
 

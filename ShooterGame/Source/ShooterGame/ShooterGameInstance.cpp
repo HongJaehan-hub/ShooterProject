@@ -12,6 +12,11 @@ void UShooterGameInstance::Init()
     Super::Init();
     UUIManager::Instance()->Init();
     UShooterEventManager::Instance()->Init();
-    UCharacterManager::Instance()->Init(); 
+    UCharacterManager::Instance()->Init(this); 
     UCMSTable::Instance()->Init();
+}
+
+void UShooterGameInstance::Shutdown()
+{
+    UCharacterManager::Instance()->Destroyed();
 }

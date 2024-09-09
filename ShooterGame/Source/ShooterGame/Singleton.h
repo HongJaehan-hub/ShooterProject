@@ -13,5 +13,4 @@ UCLASS()
 class SHOOTERGAME_API USingleton : public UObject
 {
 	GENERATED_BODY()
-	
 };

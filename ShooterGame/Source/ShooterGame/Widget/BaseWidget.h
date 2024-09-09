@@ -13,7 +13,11 @@ UCLASS()
 class SHOOTERGAME_API UBaseWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void Refresh();

@@ -6,9 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "CMSTable.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class SHOOTERGAME_API UCMSTable : public UObject
 {
@@ -23,6 +20,6 @@ public:
 	TSharedPtr<FJsonObject> GetTableRow(FString TableName, int32 CmsId);
 private:
 	static UCMSTable* _Instance;
-	FString TablePath;
 	TMap<FString, TArray<TSharedPtr<FJsonValue>>> CachedTables;
+	FString TablePath;
 };

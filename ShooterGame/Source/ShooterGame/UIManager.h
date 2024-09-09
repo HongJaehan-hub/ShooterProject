@@ -27,6 +27,7 @@ public:
 	void ClosePopup(UUserWidget* UserWidget);
 	bool IsAnyPopupOpened();
 	bool IsWidgetOpened(FString WidgetName);
+	void SetImage(class UImage* Image, FString &ImagePath);
 
 private:
 	UUIManager();

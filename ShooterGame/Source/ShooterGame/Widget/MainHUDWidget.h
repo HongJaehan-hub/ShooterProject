@@ -23,4 +23,18 @@ public:
 
 public:
 	void OnInit();
+
+	UFUNCTION(BlueprintCallable)
+	void StartGame();
+
+private:
+	void CreateCharacterListEntries();
+	void SelectCharacter(int32 CharacterId);
+
+public:
+	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
+	class UButton* ButtonBack;
+
+private:
+	TArray<class UCharacterListEntry*> CharacterListEntries;
 };

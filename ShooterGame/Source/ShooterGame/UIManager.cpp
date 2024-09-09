@@ -8,6 +8,9 @@
 #include "GameFramework/PlayerController.h"
 #include "Widget/PopupWidget.h"
 #include "ShooterPlayerController.h"
+#include "Components/Image.h"
+#include "Engine/Texture2D.h"
+#include "Styling/SlateBrush.h" 
 
 UUIManager* UUIManager::_Instance = nullptr;
 
@@ -81,4 +84,18 @@ bool UUIManager::IsWidgetOpened(FString WidgetName)
             return true;
     }
     return false;
+}
+
+void UUIManager::SetImage(UImage* Image, FString& ImagePath)
+{
+    if(Image == nullptr)
+        return;
+    
+    UTexture2D* LoadedTexture = LoadObject<UTexture2D>(nullptr, *ImagePath);
+    if(LoadedTexture)
+    {
+        FSlateBrush Brush;
+        Brush.SetResourceObject(LoadedTexture);
+        Image->SetBrush(Brush);
+    }
 }

@@ -16,4 +16,5 @@ class SHOOTERGAME_API UShooterGameInstance : public UGameInstance
 
 public:
 	virtual void Init() override;
+	virtual void Shutdown() override;
 };
