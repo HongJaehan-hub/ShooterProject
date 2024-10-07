@@ -41,3 +41,7 @@
 <br> Character Manager 제작, 캐릭터 선택 창 제작
 <br> Character.json 파일로부터 데이터를 가져와 캐릭터 선택 기능 추가
 <br>[[Character 선택 창 설명]](https://github.com/HongJaehan-hub/ShooterProject/tree/main/%EC%84%A4%EB%AA%85/Character)
+
+<br><br> EditorUtilityWidget 사용하여 ContentPath.json 파일 생성 툴 제작
+<br> ResourceManager를 제작, UI, Character Asset을 ContentPath를 통해 가져옴
+<br>[[ContentPathCreator Tool, Resourece Manager 설명]](https://github.com/HongJaehan-hub/ShooterProject/blob/main/%EC%84%A4%EB%AA%85/ResourceManager/ReadMe.md)
