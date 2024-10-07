@@ -19,6 +19,9 @@ private:
 	void CreateMainHUD();
 	void ChangeToGameStartCamera();
 	void CreateDefaultCharacter();
+	void SetInputMode(bool bOnlyUIMode);
+private:
+	TWeakObjectPtr<class UMainHUDWidget> MainHUDWeakPtr;
 };
 
 

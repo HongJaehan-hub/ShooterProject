@@ -18,9 +18,9 @@
 #include "Engine/EngineTypes.h"
 #include "ShooterGameCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "ResourceManager.h"
 
 UCharacterManager* UCharacterManager::_Instance = nullptr;
-FString CharacterAssetPath = "/Game/Shooter/Blueprints/Characters/";
 
 UCharacterManager *UCharacterManager::Instance()
 {
@@ -50,9 +50,11 @@ void UCharacterManager::SetCharacter(int32 CharacterId)
     if(CurrentCharacterId == CharacterId)
         return;
 
+    // 기존 Pawn 숨김 처리
     HideAllCharacters();
     CurrentCharacterId = CharacterId;
 
+    // 캐싱된 데이터가 있으면 해당 Pawn 사용
     if(CachedPawn.Num() != 0 && CachedPawn.Contains(CharacterId))
     {
         APawn* Pawn = CachedPawn[CharacterId];
@@ -64,6 +66,7 @@ void UCharacterManager::SetCharacter(int32 CharacterId)
         }
     }
 
+    // 캐릭터 생성
     APawn* SpawnedPawn = SpawnCharacter(CharacterId);
     if(SpawnedPawn)
     {
@@ -74,12 +77,15 @@ void UCharacterManager::SetCharacter(int32 CharacterId)
 
 APawn* UCharacterManager::SpawnCharacter(int32 CharacterId)
 {
+    // Character Table에서 Asset 정보를 가져와 Spawn
     TSharedPtr<FJsonObject> CharacterCms = UCMSTable::Instance()->GetTableRow("Character", CharacterId);
     if(CharacterCms.IsValid())
-    {   
+    {  
         FString AssetName = CharacterCms->GetStringField(TEXT("CharacterAsset"));
-        FString Path = CharacterAssetPath + AssetName + "." + AssetName + "_C";
-        FSoftObjectPath SoftObjectPath(Path);
+        FString AssetClassPath = UResourceManager::Instance()->GetAssetClassPath(AssetName);
+        UE_LOG(LogTemp, Warning, TEXT("AssetClassPath : %s"), *AssetClassPath);
+
+        FSoftObjectPath SoftObjectPath(AssetClassPath);
         UClass* NewCharacterClass = Cast<UClass>(SoftObjectPath.TryLoad());
         if(NewCharacterClass)
         {

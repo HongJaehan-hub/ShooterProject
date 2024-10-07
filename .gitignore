@@ -10,3 +10,7 @@ ShooterGame/.vsconfig
 ShooterGame/ShooterGame.code-workspace
 ShooterGame/ShooterGame.sln
 ShooterGame/ShooterGame.uproject
+ShooterGame/Plugins/CppEditorWidget/Binaries
+ShooterGame/Plugins/CppEditorWidget/Content
+ShooterGame/Plugins/CppEditorWidget/Resources
+ShooterGame/Plugins/CppEditorWidget/Intermediate

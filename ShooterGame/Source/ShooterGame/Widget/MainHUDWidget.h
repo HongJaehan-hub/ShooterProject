@@ -36,5 +36,5 @@ public:
 	class UButton* ButtonBack;
 
 private:
-	TArray<class UCharacterListEntry*> CharacterListEntries;
+	TArray<TWeakObjectPtr<class UCharacterListEntry>> CharacterListEntries;
 };

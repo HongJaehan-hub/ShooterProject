@@ -47,10 +47,13 @@ void UMainHUDWidget::CreateCharacterListEntries()
 void UMainHUDWidget::SelectCharacter(int32 CharacterId)
 {
     UCharacterManager::Instance()->SetCharacter(CharacterId);
-    for(auto &Entry : CharacterListEntries)
+    for(const TWeakObjectPtr<UCharacterListEntry>& WeakPtr : CharacterListEntries)
     {
-        bool IsSelected = Entry->GetCharaterId() == CharacterId;
-        Entry->SetSelect(IsSelected);
+        if(UCharacterListEntry* Entry = WeakPtr.Get())
+        {
+            bool IsSelected = Entry->GetCharaterId() == CharacterId;
+            Entry->SetSelect(IsSelected);
+        }
     }
 }
 

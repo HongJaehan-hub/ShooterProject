@@ -6,7 +6,7 @@
 UCMSTable::UCMSTable()
 {
     // 기본 경로 초기화
-    TablePath =  FPaths::ProjectContentDir() / TEXT("Shooter/Tables");
+    TablePath = FPaths::ProjectContentDir() / TEXT("Shooter/Tables");
 }
 
 UCMSTable* UCMSTable::_Instance = nullptr;

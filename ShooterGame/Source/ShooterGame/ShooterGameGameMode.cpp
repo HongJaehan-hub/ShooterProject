@@ -8,6 +8,7 @@
 #include "UIManager.h"
 #include "CharacterManager.h"
 #include "Widget/MainHUDWidget.h"
+#include "GameFramework/PlayerController.h"
 
 AShooterGameGameMode::AShooterGameGameMode()
 {
@@ -24,10 +25,12 @@ void AShooterGameGameMode::StartPlay()
 
 void AShooterGameGameMode::CreateMainHUD()
 {
-    UMainHUDWidget* MainHUDwidget = UUIManager::Instance()->AddWidget<UMainHUDWidget>(this, "WBP_MainHUD");
-    if(MainHUDwidget)
+    UMainHUDWidget* MainHUDWidget = UUIManager::Instance()->AddWidget<UMainHUDWidget>(this, "WBP_MainHUD");
+    if(MainHUDWidget)
     {
-        MainHUDwidget->OnInit();
+        MainHUDWeakPtr = MainHUDWidget;
+        MainHUDWidget->OnInit();
+        SetInputMode(true);
     }
 }
 
@@ -54,4 +57,16 @@ void AShooterGameGameMode::CreateDefaultCharacter()
 {
     // Create Default Character Wiraith
     UCharacterManager::Instance()->SetCharacter(1000);
+}
+
+void AShooterGameGameMode::SetInputMode(bool bOnlyUIMode)
+{
+    APlayerController* PlayerController = UGameplayStatics::GetPlayerController(this, 0);
+    if(PlayerController)
+    {
+        // FInputModeUIOnly InputMode;
+        PlayerController->SetInputMode(FInputModeUIOnly());
+        PlayerController->bShowMouseCursor = true;
+        
+    }
 }

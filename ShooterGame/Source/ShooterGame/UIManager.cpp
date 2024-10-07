@@ -11,6 +11,7 @@
 #include "Components/Image.h"
 #include "Engine/Texture2D.h"
 #include "Styling/SlateBrush.h" 
+#include "ResourceManager.h"
 
 UUIManager* UUIManager::_Instance = nullptr;
 
@@ -42,8 +43,8 @@ void UUIManager::Init()
 UUserWidget *UUIManager::CreateWidget(UObject *WorldContextObject, const FString &WidgetName)
 {
     APlayerController* PlayerController = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
-    FString Path = "WidgetBlueprint'/Game/Shooter/WidgetBlueprints/" +  WidgetName + "." + WidgetName + "_C'";
-    UClass* WidgetClass = StaticLoadClass(UUserWidget::StaticClass(), nullptr, *Path);
+    FString AssetClassPath = UResourceManager::Instance()->GetAssetClassPath(WidgetName);
+    UClass* WidgetClass = StaticLoadClass(UUserWidget::StaticClass(), nullptr, *AssetClassPath);
 
     if(WidgetClass != nullptr)
     {
