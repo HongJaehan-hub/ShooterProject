@@ -67,7 +67,7 @@ inline T *UUIManager::OpenPopup(UObject *WorldContextObject, const FString &Widg
 template <typename T>
 inline T *UUIManager::AddWidget(UObject *WorldContextObject, FString WidgetName)
 {
-	UUserWidget* Widget = CreateWidget(WorldContextObject, WidgetName);
+	UUserWidget* Widget = UResourceManager::Instance()->CreateWidget(WorldContextObject, WidgetName);
 	if(Widget == nullptr)
     	return nullptr;
 

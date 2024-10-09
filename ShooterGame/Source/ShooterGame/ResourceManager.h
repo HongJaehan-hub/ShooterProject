@@ -21,6 +21,7 @@ public:
 	void Init();
 	FString GetAssetPath(const FString& AssetName);
 	FString GetAssetClassPath(const FString& ClassName);
+	class UUserWidget* CreateWidget(UObject* WorldContextObject, const FString& WidgetName);
 
 private:
 	static UResourceManager* _Instance;

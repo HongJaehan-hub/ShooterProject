@@ -67,15 +67,10 @@ void UCharacterManager::SetCharacter(int32 CharacterId)
     }
 
     // 캐릭터 생성
-    APawn* SpawnedPawn = SpawnCharacter(CharacterId);
-    if(SpawnedPawn)
-    {
-        CurrentPawn = SpawnedPawn;
-        CachedPawn.Add(CharacterId, CurrentPawn);
-    }
+    SpawnCharacter(CharacterId);
 }
 
-APawn* UCharacterManager::SpawnCharacter(int32 CharacterId)
+void UCharacterManager::SpawnCharacter(int32 CharacterId)
 {
     // Character Table에서 Asset 정보를 가져와 Spawn
     TSharedPtr<FJsonObject> CharacterCms = UCMSTable::Instance()->GetTableRow("Character", CharacterId);
@@ -83,9 +78,19 @@ APawn* UCharacterManager::SpawnCharacter(int32 CharacterId)
     {  
         FString AssetName = CharacterCms->GetStringField(TEXT("CharacterAsset"));
         FString AssetClassPath = UResourceManager::Instance()->GetAssetClassPath(AssetName);
-        UE_LOG(LogTemp, Warning, TEXT("AssetClassPath : %s"), *AssetClassPath);
+        AsyncLoadCharacter(AssetClassPath, CharacterId);
+    }
+}
 
-        FSoftObjectPath SoftObjectPath(AssetClassPath);
+void UCharacterManager::AsyncLoadCharacter(const FString& AssetClassPath, int32 CharacterId)
+{
+    FSoftObjectPath SoftObjectPath(AssetClassPath);
+    FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
+    
+    // StreamableManager 통해 비동기 로드
+    Streamable.RequestAsyncLoad(SoftObjectPath, FStreamableDelegate::CreateLambda([this, SoftObjectPath, CharacterId]()
+    {
+        // 로드 완료 후 생성
         UClass* NewCharacterClass = Cast<UClass>(SoftObjectPath.TryLoad());
         if(NewCharacterClass)
         {
@@ -94,11 +99,17 @@ APawn* UCharacterManager::SpawnCharacter(int32 CharacterId)
             {
                 FActorSpawnParameters SpawnParams;
                 SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-                return GameInstance->GetWorld()->SpawnActor<APawn>(NewCharacterClass, PlayerStart->GetActorLocation(), PlayerStart->GetActorRotation(), SpawnParams);
+                APawn* SpawnedPawn = GameInstance->GetWorld()->SpawnActor<APawn>(NewCharacterClass, PlayerStart->GetActorLocation(), PlayerStart->GetActorRotation(), SpawnParams);
+                
+                // 생성된 Pawn을 캐싱
+                if(SpawnedPawn)
+                {
+                    CurrentPawn = SpawnedPawn;
+                    CachedPawn.Add(CharacterId, CurrentPawn);
+                }                
             }
         }
-    }
-    return nullptr;
+    }));
 }
 
 void UCharacterManager::HideAllCharacters()

@@ -25,6 +25,16 @@ UUIManager::~UUIManager()
     WidgetStack.Reset();
 }
 
+
+UUserWidget * UUIManager::CreateWidget(UObject * WorldContextObject, const FString & WidgetName)
+{
+    UResourceManager* ResourceManager = UResourceManager::Instance();
+    if(!ResourceManager)
+        return nullptr;
+
+    return ResourceManager->CreateWidget(WorldContextObject, WidgetName);
+}
+
 UUIManager *UUIManager::Instance()
 {
     if(_Instance == nullptr)
@@ -38,19 +48,6 @@ UUIManager *UUIManager::Instance()
 void UUIManager::Init()
 {
     WidgetStack.Reset();
-}
-
-UUserWidget *UUIManager::CreateWidget(UObject *WorldContextObject, const FString &WidgetName)
-{
-    APlayerController* PlayerController = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
-    FString AssetClassPath = UResourceManager::Instance()->GetAssetClassPath(WidgetName);
-    UClass* WidgetClass = StaticLoadClass(UUserWidget::StaticClass(), nullptr, *AssetClassPath);
-
-    if(WidgetClass != nullptr)
-    {
-        return UWidgetBlueprintLibrary::Create(WorldContextObject, WidgetClass, PlayerController);
-    }
-    return nullptr;
 }
 
 void UUIManager::ClosePopup(UUserWidget *UserWidget)

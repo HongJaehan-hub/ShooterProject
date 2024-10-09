@@ -34,7 +34,8 @@ public:
 	inline class APawn* GetCurrentPawn() { return CurrentPawn;};
 
 private:
-	class APawn* SpawnCharacter(int32 CharacterId);
+	void SpawnCharacter(int32 CharacterId);
+	void AsyncLoadCharacter(const FString& AssetClassPath, int32 CharacterId);
 
 	void HideAllCharacters();
 
